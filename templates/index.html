@@ -1,0 +1,353 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge fade-in">
+        <i class="fas fa-award"></i>
+        Servis Laptop Terpercaya #1 di Jakarta
+      </div>
+
+      <h1 class="fade-in">
+        Solusi Lengkap untuk
+        <span style="color: var(--primary-600);">Laptop</span> Anda
+      </h1>
+
+      <p class="fade-in">
+        Kami menyediakan jasa servis laptop profesional dengan teknisi berpengalaman,
+        menggunakan sparepart original, dan memberikan garansi servis hingga 6 bulan.
+      </p>
+
+      <div class="hero-buttons fade-in">
+        <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg">
+          <i class="fas fa-tools"></i>
+          Lihat Layanan Kami
+        </a>
+        <a href="{{ url_for('contact') }}" class="btn btn-outline btn-lg">
+          <i class="fas fa-phone"></i>
+          Konsultasi Gratis
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="section about">
+  <div class="container">
+    <div class="about-content">
+      <div class="about-text slide-in-left">
+        <div class="section-badge">Tentang Kami</div>
+        <h2>Mengapa Memilih LaptopCare?</h2>
+        <p class="about-description">
+          Dengan pengalaman lebih dari 5 tahun melayani ribuan pelanggan di Jakarta,
+          LaptopCare telah menjadi pilihan utama untuk servis laptop profesional.
+          Kami mengutamakan kualitas, kecepatan, dan kepuasan pelanggan dengan
+          standar layanan tertinggi.
+        </p>
+
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <div class="highlight-number">5+</div>
+            <div class="highlight-text">
+              <strong>Tahun Pengalaman</strong><br>
+              <span>Melayani ribuan pelanggan</span>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-number">98%</div>
+            <div class="highlight-text">
+              <strong>Kepuasan Pelanggan</strong><br>
+              <span>Tingkat kepuasan tertinggi</span>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-number">24h</div>
+            <div class="highlight-text">
+              <strong>Estimasi Waktu</strong><br>
+              <span>Pengerjaan cepat & tepat</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-features">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-certificate"></i>
+            </div>
+            <h4>Garansi Resmi</h4>
+            <p>Garansi servis hingga 6 bulan untuk semua jenis perbaikan hardware dan software</p>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h4>Pengerjaan Cepat</h4>
+            <p>Estimasi waktu perbaikan yang jelas dan tepat waktu sesuai dengan jenis kerusakan</p>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-tools"></i>
+            </div>
+            <h4>Sparepart Original</h4>
+            <p>Menggunakan komponen original dengan kualitas terjamin dan sertifikasi resmi</p>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-user-check"></i>
+            </div>
+            <h4>Teknisi Bersertifikat</h4>
+            <p>Tim teknisi profesional dengan sertifikasi internasional dan pengalaman bertahun-tahun</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-image slide-in-right">
+        <div class="about-stats-card">
+          <div class="stats-header">
+            <i class="fas fa-laptop-code"></i>
+            <h3>Servis Profesional</h3>
+          </div>
+          <p class="stats-description">
+            Dari diagnosis masalah hingga perbaikan lengkap, kami siap membantu Anda
+            dengan layanan servis laptop terpercaya dan berkualitas tinggi.
+          </p>
+          <div class="stats-benefits">
+            <div class="benefit">
+              <i class="fas fa-check-circle"></i>
+              <span>Diagnosis Gratis</span>
+            </div>
+            <div class="benefit">
+              <i class="fas fa-check-circle"></i>
+              <span>Konsultasi Ahli</span>
+            </div>
+            <div class="benefit">
+              <i class="fas fa-check-circle"></i>
+              <span>Pickup & Delivery</span>
+            </div>
+            <div class="benefit">
+              <i class="fas fa-check-circle"></i>
+              <span>24/7 Support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Preview Section -->
+<section class="section services">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">Layanan Kami</div>
+      <h2>Layanan Servis Terlengkap</h2>
+      <p>Kami menyediakan berbagai layanan servis laptop mulai dari perbaikan hardware hingga software dengan harga terjangkau.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <div class="service-icon">
+          <i class="fas fa-microchip"></i>
+        </div>
+        <h3>Perbaikan Hardware</h3>
+        <p>Perbaikan komponen hardware laptop seperti motherboard, RAM, harddisk, keyboard, dan layar.</p>
+        <div class="service-price">Mulai dari Rp 50.000</div>
+        <ul class="service-features">
+          <li>Ganti RAM/SSD</li>
+          <li>Perbaikan Motherboard</li>
+          <li>Service Keyboard/Layar</li>
+        </ul>
+      </div>
+
+      <div class="service-card fade-in">
+        <div class="service-icon">
+          <i class="fas fa-code"></i>
+        </div>
+        <h3>Perbaikan Software</h3>
+        <p>Instalasi ulang OS, perbaikan virus, optimasi performa, dan recovery data yang hilang.</p>
+        <div class="service-price">Mulai dari Rp 30.000</div>
+        <ul class="service-features">
+          <li>Instalasi OS Windows</li>
+          <li>Perbaikan Virus/Malware</li>
+          <li>Optimasi Performa</li>
+        </ul>
+      </div>
+
+      <div class="service-card fade-in">
+        <div class="service-icon">
+          <i class="fas fa-broom"></i>
+        </div>
+        <h3>Pembersihan & Maintenance</h3>
+        <p>Pembersihan debu, penggantian thermal paste, dan maintenance rutin untuk menjaga performa laptop.</p>
+        <div class="service-price">Mulai dari Rp 25.000</div>
+        <ul class="service-features">
+          <li>Cleaning Service</li>
+          <li>Ganti Thermal Paste</li>
+          <li>Maintenance Rutin</li>
+        </ul>
+      </div>
+
+      <div class="service-card fade-in">
+        <div class="service-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Upgrade & Optimasi</h3>
+        <p>Upgrade RAM, SSD, dan komponen lainnya untuk meningkatkan performa laptop Anda.</p>
+        <div class="service-price">Mulai dari Rp 75.000</div>
+        <ul class="service-features">
+          <li>Upgrade RAM/SSD</li>
+          <li>Optimasi Sistem</li>
+          <li>Backup Data</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="text-center" style="margin-top: 48px;">
+      <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg">
+        <i class="fas fa-arrow-right"></i>
+        Lihat Semua Layanan
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section testimonials">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">Testimoni</div>
+      <h2>Apa Kata Pelanggan Kami</h2>
+      <p>Ribuan pelanggan telah mempercayakan laptop mereka kepada kami. Berikut beberapa testimoni dari pelanggan puas.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-text">
+          Servis sangat cepat dan profesional. Laptop saya yang tiba-tiba mati bisa kembali normal dalam waktu 2 hari.
+          Teknisi nya juga sangat sabar menjelaskan masalah dan solusinya.
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">A</div>
+          <div class="author-info">
+            <h4>Ahmad Rahman</h4>
+            <p>Mahasiswa</p>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card fade-in">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-text">
+          Sudah 3 tahun menggunakan jasa LaptopCare untuk maintenance laptop kantor.
+          Selalu reliable dan harga nya reasonable. Recommended banget!
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">S</div>
+          <div class="author-info">
+            <h4>Sari Indah</h4>
+            <p>Manager HR</p>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card fade-in">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-text">
+          Upgrade RAM dan SSD di sini sangat worth it. Laptop gaming saya sekarang jauh lebih smooth.
+          Teknisi nya juga jujur, nggak ada yang ditambahkan yang nggak perlu.
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">R</div>
+          <div class="author-info">
+            <h4>Rizky Gaming</h4>
+            <p>Gamer</p>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center" style="margin-top: 48px;">
+      <a href="{{ url_for('testimoni') }}" class="btn btn-outline btn-lg">
+        <i class="fas fa-comments"></i>
+        Lihat Semua Testimoni
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section cta">
+  <div class="container">
+    <div class="cta-content fade-in">
+      <h2>Siap Memperbaiki Laptop Anda?</h2>
+      <p>
+        Jangan biarkan masalah laptop mengganggu produktivitas Anda.
+        Hubungi kami sekarang dan dapatkan diagnosis gratis!
+      </p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://wa.me/6281234567890" class="btn btn-secondary btn-lg" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid rgba(255,255,255,0.3);">
+          <i class="fab fa-whatsapp"></i>
+          WhatsApp: +62 812-3456-7890
+        </a>
+        <a href="{{ url_for('contact') }}" class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.5); color: white;">
+          <i class="fas fa-envelope"></i>
+          Kirim Pesan
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Scroll-triggered animations for index page
+document.addEventListener('DOMContentLoaded', function() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Initially pause all animations
+  document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+});
+</script>
+{% endblock %}

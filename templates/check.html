@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="check-page">
+    <div class="container">
+        <div class="check-header">
+            <h1>🧾 Cek Status Servis Laptop</h1>
+            <p>Masukkan nomor nota atau nama Anda untuk melihat status perbaikan laptop</p>
+        </div>
+
+        <div class="check-form-section">
+            <div class="form-card">
+                <div class="form-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h2>Cek Status Servis</h2>
+                <form method="POST" action="{{ url_for('check') }}" class="check-form">
+                    <div class="form-group">
+                        <label for="nomor">Nomor Nota atau Nama</label>
+                        <input type="text" id="nomor" name="nomor" placeholder="Contoh: S001 atau Rafi" required>
+                        <small>Masukkan nomor nota servis atau nama pelanggan</small>
+                    </div>
+                    <button type="submit" class="btn check-btn">
+                        <i class="fas fa-search"></i> Cek Status
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {% if hasil %}
+        <div class="result-section">
+            <div class="result-card">
+                <div class="result-header">
+                    <div class="result-icon">
+                        {% if hasil.status == "Selesai - Siap Diambil" %}
+                        <i class="fas fa-check-circle"></i>
+                        {% elif hasil.status == "Sedang Dikerjakan" %}
+                        <i class="fas fa-tools"></i>
+                        {% elif hasil.status == "Menunggu Sparepart" %}
+                        <i class="fas fa-clock"></i>
+                        {% else %}
+                        <i class="fas fa-info-circle"></i>
+                        {% endif %}
+                    </div>
+                    <div class="result-title">
+                        <h3>Status Servis Ditemukan</h3>
+                        <span class="status-badge status-{{ 'completed' if hasil.status == 'Selesai - Siap Diambil' else 'progress' if hasil.status == 'Sedang Dikerjakan' else 'waiting' if hasil.status == 'Menunggu Sparepart' else 'unknown' }}">
+                            {{ hasil.status }}
+                        </span>
+                    </div>
+                </div>
+                <div class="result-details">
+                    <div class="detail-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <strong>Nama Pelanggan</strong>
+                            <p>{{ hasil.nama }}</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-hashtag"></i>
+                        <div>
+                            <strong>Nomor Nota</strong>
+                            <p>{{ hasil.nota }}</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <strong>Tanggal Servis</strong>
+                            <p>{{ "2025-11-02" }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% if hasil.status == "Selesai - Siap Diambil" %}
+                <div class="result-actions">
+                    <a href="{{ url_for('contact') }}" class="btn pickup-btn">
+                        <i class="fas fa-box-open"></i> Ambil Unit
+                    </a>
+                    <a href="https://api.whatsapp.com/send/?phone=6281223447569&text=Halo%20LaptopCare,%20saya%20ingin%20mengambil%20unit%20servis%20{{ hasil.nota }}&type=phone_number&app_absent=0" class="btn whatsapp-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Konfirmasi WhatsApp
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% elif hasil is not none %}
+        <div class="no-result">
+            <div class="no-result-card">
+                <div class="no-result-icon">
+                    <i class="fas fa-search-minus"></i>
+                </div>
+                <h3>Data Tidak Ditemukan</h3>
+                <p>Pastikan nomor nota atau nama yang Anda masukkan sudah benar.</p>
+                <div class="no-result-actions">
+                    <a href="{{ url_for('contact') }}" class="btn">
+                        <i class="fas fa-phone"></i> Hubungi Kami
+                    </a>
+                    <button onclick="document.getElementById('nomor').focus()" class="btn btn-outline">
+                        <i class="fas fa-redo"></i> Coba Lagi
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="help-section">
+            <h3>Butuh Bantuan?</h3>
+            <p>Jika Anda mengalami kesulitan mencari status servis, hubungi kami langsung</p>
+            <div class="help-actions">
+                <a href="https://api.whatsapp.com/send/?phone=6281223447569&text=Halo%20LaptopCare,%20saya%20ingin%20menanyakan%20status%20servis&type=phone_number&app_absent=0" class="btn whatsapp-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Tanya via WhatsApp
+                </a>
+                <a href="tel:081223447569" class="btn phone-btn">
+                    <i class="fas fa-phone"></i> Telepon Langsung
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

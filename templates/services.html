@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Layanan Servis{% endblock %}
+
+{% block content %}
+<section class="services">
+    <div class="container">
+        <div class="services-header">
+            <h2>🧰 Layanan Servis Laptop</h2>
+            <p>Kami melayani berbagai jenis perbaikan dan perawatan laptop dengan teknisi berpengalaman. Semua layanan kami menggunakan sparepart berkualitas dan dikerjakan dengan standar profesional.</p>
+        </div>
+
+        <div class="service-list">
+            <div class="service-item">
+                <div class="service-icon">
+                    <i class="fas fa-thermometer-half"></i>
+                </div>
+                <h3>Ganti Thermal Paste</h3>
+                <p>Membersihkan kipas dan mengganti thermal paste CPU/GPU agar laptop tidak cepat panas. Mencegah overheating dan memperpanjang umur komponen.</p>
+                <div class="service-details">
+                    <span class="duration"><i class="fas fa-clock"></i> 30-45 menit</span>
+                    <span class="price">Rp75.000</span>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">
+                    <i class="fas fa-windows"></i>
+                </div>
+                <h3>Install Ulang Windows</h3>
+                <p>Pemasangan ulang sistem operasi Windows beserta driver dan aplikasi standar. Termasuk backup data dan optimasi performa.</p>
+                <div class="service-details">
+                    <span class="duration"><i class="fas fa-clock"></i> 2-3 jam</span>
+                    <span class="price">Rp100.000</span>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">
+                    <i class="fas fa-hdd"></i>
+                </div>
+                <h3>Upgrade SSD/HDD</h3>
+                <p>Pemasangan SSD baru dan migrasi data dari HDD lama. Termasuk cloning data dan optimasi sistem untuk performa maksimal.</p>
+                <div class="service-details">
+                    <span class="duration"><i class="fas fa-clock"></i> 1-2 jam</span>
+                    <span class="price">Rp50.000</span>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">
+                    <i class="fas fa-keyboard"></i>
+                </div>
+                <h3>Service Keyboard</h3>
+                <p>Perbaikan atau penggantian keyboard laptop yang rusak. Termasuk pembersihan debu dan kalibrasi tombol.</p>
+                <div class="service-details">
+                    <span class="duration"><i class="fas fa-clock"></i> 45-60 menit</span>
+                    <span class="price">Rp120.000</span>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Ganti LCD</h3>
+                <p>Penggantian layar laptop yang pecah atau bergaris. Menggunakan LCD original dengan kualitas terbaik.</p>
+                <div class="service-details">
+                    <span class="duration"><i class="fas fa-clock"></i> 1-2 jam</span>
+                    <span class="price">Rp350.000</span>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">
+                    <i class="fas fa-memory"></i>
+                </div>
+                <h3>Upgrade RAM</h3>
+                <p>Pemasangan RAM tambahan untuk meningkatkan performa multitasking dan aplikasi berat.</p>
+                <div class="service-details">
+                    <span class="duration"><i class="fas fa-clock"></i> 30-45 menit</span>
+                    <span class="price">Rp30.000</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="services-cta">
+            <h3>Punya Masalah Lain?</h3>
+            <p>Kami siap membantu dengan berbagai masalah laptop lainnya. Konsultasikan kebutuhan Anda dengan teknisi kami.</p>
+            <a href="{{ url_for('contact') }}" class="btn">Konsultasi Gratis</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
