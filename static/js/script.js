@@ -1,39 +1,39 @@
 // Hamburger Menu Toggle
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
+document.addEventListener("DOMContentLoaded", function () {
+  const hamburger = document.querySelector(".hamburger");
+  const navLinks = document.querySelector(".nav-links");
 
-    if (hamburger && navLinks) {
-        hamburger.addEventListener('click', function() {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', function() {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
-        });
-    }
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
+  if (hamburger && navLinks) {
+    hamburger.addEventListener("click", function () {
+      hamburger.classList.toggle("active");
+      navLinks.classList.toggle("active");
     });
 
-    // Add fade-in animation on scroll - REMOVED to prevent white flash effects
-    /*
+    // Close menu when clicking on a link
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", function () {
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("active");
+      });
+    });
+  }
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    });
+  });
+
+  // Add fade-in animation on scroll - REMOVED to prevent white flash effects
+  /*
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -53,108 +53,134 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     */
 
-    // Add loading animation
-    window.addEventListener('load', function() {
-        // Removed loading animation to prevent page transition effects
-    });
+  // Add loading animation
+  window.addEventListener("load", function () {
+    // Removed loading animation to prevent page transition effects
+  });
 
-    // Testimonial Slider
-    let currentSlide = 0;
-    let slides = document.querySelectorAll('.testimonial-slide');
-    let dots = document.querySelectorAll('.dot');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+  // Testimonial Slider (robust re-querying, no node cloning)
+  (function () {
+    let current = 0;
+    let autoSlideInterval = null;
 
-    function updateSliderElements() {
-        slides = document.querySelectorAll('.testimonial-slide');
-        dots = document.querySelectorAll('.dot');
+    function getSlides() {
+      return Array.from(document.querySelectorAll(".testimonial-slide"));
     }
 
-    function showSlide(index) {
-        updateSliderElements();
+    function getDots() {
+      return Array.from(document.querySelectorAll(".dot"));
+    }
 
-        if (slides.length === 0) return;
+    function updateView() {
+      const slides = getSlides();
+      const dots = getDots();
+      const container = document.querySelector(".testimonial-container");
 
-        if (index >= slides.length) currentSlide = 0;
-        if (index < 0) currentSlide = slides.length - 1;
+      if (!container || slides.length === 0) return;
 
-        const container = document.querySelector('.testimonial-container');
-        if (container) {
-            container.style.transform = `translateX(-${currentSlide * 100}%)`;
+      // normalize current index
+      if (current >= slides.length) current = 0;
+      if (current < 0) current = slides.length - 1;
+
+      // Robust mode: show exactly one slide, hide the rest
+      slides.forEach((s, i) => {
+        if (i === current) {
+          s.classList.add("active");
+        } else {
+          s.classList.remove("active");
         }
+      });
 
-        // Update dots
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentSlide);
+      // When showing exactly one slide via .active, don't translate container
+      // as it can move the only visible slide out of view. Keep it at 0.
+      container.style.transform = "translateX(0)";
+
+      // update dots
+      dots.forEach((dot, i) => dot.classList.toggle("active", i === current));
+    }
+
+    function goTo(index) {
+      current = index;
+      updateView();
+    }
+
+    function next() {
+      goTo(current + 1);
+    }
+    function prev() {
+      goTo(current - 1);
+    }
+
+    function setupControls() {
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      if (prevBtn)
+        prevBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          prev();
         });
+      if (nextBtn)
+        nextBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          next();
+        });
+
+      // dots
+      const dots = getDots();
+      dots.forEach((dot, idx) => {
+        dot.addEventListener("click", function () {
+          goTo(idx);
+        });
+      });
     }
 
-    function nextSlide() {
-        currentSlide++;
-        showSlide(currentSlide);
+    function setupAutoSlide() {
+      const slider = document.querySelector(".testimonial-slider");
+      const slides = getSlides();
+      if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = null;
+      }
+      if (slides.length > 1) {
+        autoSlideInterval = setInterval(next, 4000); // Auto slide every 4 seconds
+        if (slider) {
+          slider.addEventListener("mouseenter", () => {
+            if (autoSlideInterval) clearInterval(autoSlideInterval);
+          });
+          slider.addEventListener("mouseleave", () => {
+            if (!autoSlideInterval) autoSlideInterval = setInterval(next, 4000);
+          });
+        }
+      }
     }
 
-    function prevSlide() {
-        currentSlide--;
-        showSlide(currentSlide);
-    }
-
-    // Initialize slider
-    function initSlider() {
-        updateSliderElements();
-
-        // Reset to first slide when new testimonials are added
-        currentSlide = 0;
-        showSlide(currentSlide);
-
-        // Event listeners for slider
-        if (prevBtn && nextBtn) {
-            // Remove existing event listeners to avoid duplicates
-            nextBtn.replaceWith(nextBtn.cloneNode(true));
-            prevBtn.replaceWith(prevBtn.cloneNode(true));
-
-            const newNextBtn = document.getElementById('nextBtn');
-            const newPrevBtn = document.getElementById('prevBtn');
-
-            newNextBtn.addEventListener('click', nextSlide);
-            newPrevBtn.addEventListener('click', prevSlide);
-        }
-
-        if (dots.length > 0) {
-            dots.forEach((dot, index) => {
-                // Remove existing event listeners
-                dot.replaceWith(dot.cloneNode(true));
-            });
-
-            // Re-select dots after cloning
-            updateSliderElements();
-
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    currentSlide = index;
-                    showSlide(currentSlide);
-                });
-            });
-        }
-
-        // Auto slide only if more than 1 slide
-        if (slides.length > 1) {
-            let autoSlideInterval = setInterval(nextSlide, 5000);
-
-            // Pause auto slide on hover
-            const slider = document.querySelector('.testimonial-slider');
-            if (slider) {
-                slider.addEventListener('mouseenter', () => {
-                    clearInterval(autoSlideInterval);
-                });
-
-                slider.addEventListener('mouseleave', () => {
-                    autoSlideInterval = setInterval(nextSlide, 5000);
-                });
-            }
-        }
+    function init() {
+      // always reinitialize view to handle DOM changes
+      current = 0;
+      updateView();
+      setupAutoSlide();
+      // Debug: log slide contents so we can see if elements are empty after a form POST
+      try {
+        const slides = getSlides();
+        console.log("[slider-debug] init - slide count =", slides.length);
+        slides.forEach((s, idx) => {
+          const textEl = s.querySelector(".testimonial-text");
+          const nameEl = s.querySelector(".author-info h4");
+          const msg = textEl
+            ? textEl.innerText.trim()
+            : "[no testimonial-text element]";
+          const name = nameEl ? nameEl.innerText.trim() : "[no author name]";
+          console.log(
+            `[slider-debug] slide ${idx}: name="${name}" msg="${msg}"`
+          );
+        });
+      } catch (err) {
+        console.warn("[slider-debug] failed to enumerate slides:", err);
+      }
     }
 
     // Initialize slider on page load
-    initSlider();
+    init();
+  })();
 });

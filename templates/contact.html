@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="contact-page">
+<section class="contact-page dark-theme">
     <div class="container">
         <div class="contact-header">
-            <h1>📞 Hubungi Kami</h1>
-            <p>Butuh bantuan servis laptop? Kami siap membantu Anda dengan berbagai cara</p>
+            <h1 class="section-title" style="color:#e6eef8;;">Hubungi AACell</h1>
+            <p class="section-sub">Tim teknisi kami siap membantu perbaikan, konsultasi, dan dukungan teknis. Isi formulir atau gunakan kontak cepat di samping.</p>
         </div>
 
-        <div class="contact-content">
-            <div class="contact-form-section">
-                <div class="form-card">
+        <div class="contact-grid">
+            <div class="contact-left">
+                <div class="form-card contact-card">
                     <h2>Kirim Pesan</h2>
-                    <p>Isi formulir di bawah ini dan kami akan segera menghubungi Anda</p>
+                    <p class="muted">Isi formulir berikut, kami akan menghubungi Anda dalam 1x24 jam.</p>
                     <form method="POST" action="{{ url_for('contact') }}" class="contact-form">
                         <div class="form-row">
                             <div class="form-group">
@@ -19,14 +19,16 @@
                                 <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="email@example.com" required>
+                                <label for="phone">Nomor Telepon</label>
+                                <input type="tel" id="phone" name="phone" placeholder="0812-3456-7890" required>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="phone">Nomor Telepon</label>
-                            <input type="tel" id="phone" name="phone" placeholder="0812-3456-7890" required>
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="email@example.com">
                         </div>
+
                         <div class="form-group">
                             <label for="subject">Subjek</label>
                             <select id="subject" name="subject" required>
@@ -37,75 +39,75 @@
                                 <option value="other">Lainnya</option>
                             </select>
                         </div>
+
                         <div class="form-group">
                             <label for="message">Pesan</label>
                             <textarea id="message" name="message" placeholder="Jelaskan kebutuhan Anda..." rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn submit-btn">
+
+                        <button type="submit" class="btn btn-primary submit-btn">
                             <i class="fas fa-paper-plane"></i> Kirim Pesan
                         </button>
                     </form>
                 </div>
             </div>
 
-            <div class="contact-info-section">
-                <div class="info-card">
-                    <h3>🏢 Informasi Toko</h3>
+            <aside class="contact-right">
+                <div class="info-card contact-card">
+                    <h3>Informasi Toko</h3>
                     <div class="info-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <strong>Alamat</strong>
-                            <p>komplek Buciper, Jl. Bina Lestari No.12, Citeureup, Kec. Cimahi Utara, Kota Cimahi, Jawa Barat 40512</p>
+                            <p>Komplek Buciper, Jl. Bina Lestari No.12, Citeureup, Cimahi, Jawa Barat</p>
                         </div>
                     </div>
+
                     <div class="info-item">
                         <i class="fas fa-clock"></i>
                         <div>
                             <strong>Jam Operasional</strong>
                             <p>Senin - Sabtu: 07.00 - 18.00</p>
-                            <p>Minggu: 	08.00–18.00</p>
+                            <p>Minggu: 08.00 - 18.00</p>
                         </div>
                     </div>
+
                     <div class="info-item">
                         <i class="fas fa-phone"></i>
                         <div>
                             <strong>Telepon</strong>
-                            <p>0812-2344-7569</p>
+                            <p><a href="tel:081223447569">0812-2344-7569</a></p>
                         </div>
                     </div>
+
                     <div class="info-item">
                         <i class="fas fa-envelope"></i>
                         <div>
                             <strong>Email</strong>
-                            <p>info@laptopcare.com</p>
+                            <p><a href="mailto:info@aacell.com">info@aacell.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="quick-contact mt-3">
+                        <h4>Kontak Cepat</h4>
+                        <div class="contact-buttons">
+                            <a href="https://api.whatsapp.com/send/?phone=6281223447569&text=Halo%20AACell&type=phone_number&app_absent=0" class="btn btn-wa" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                            <a href="tel:081223447569" class="btn btn-outline"><i class="fas fa-phone"></i> Telepon</a>
                         </div>
                     </div>
                 </div>
-
-                <div class="quick-contact">
-                    <h3>🚀 Kontak Cepat</h3>
-                    <p>Butuh bantuan segera? Hubungi kami langsung</p>
-                    <div class="contact-buttons">
-                        <a href="https://api.whatsapp.com/send/?phone=6281223447569&text=Halo%20LaptopCare,%20saya%20ingin%20konsultasi%20servis%20laptop&type=phone_number&app_absent=0" class="btn whatsapp-btn" target="_blank">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
-                        </a>
-                        <a href="tel:081223447569" class="btn phone-btn">
-                            <i class="fas fa-phone"></i> Telepon
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="map-section">
-            <h2>📍 Lokasi Kami</h2>
-            <div class="map-container">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.235481361973!2d107.5578426!3d-6.862357900000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e56cf36dab07%3A0x1b53f41c620171fe!2sAA%20Cellcom!5e0!3m2!1sen!2sid!4v1762082708931!5m2!1sen!2sid"
-                    width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
-                </iframe>
-            </div>
+            </aside>
         </div>
     </div>
+
+                    <div class="map-card contact-card">
+                    <h4>Lokasi Kami</h4>
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.235481361973!2d107.5578426!3d-6.862357900000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e56cf36dab07%3A0x1b53f41c620171fe!2sAA%20Cellcom!5e0!3m2!1sen!2sid!4v1762082708931!5m2!1sen!2sid"
+                            style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
 </section>
 {% endblock %}

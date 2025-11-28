@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Login - AACell{% endblock %}
+
+{% block content %}
+<section class="login-section">
+  <div class="container">
+    <div class="login-form">
+      <h2>Login</h2>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      <form method="POST">
+        <div class="form-group">
+          <label for="gmail">Gmail</label>
+          <input type="email" id="gmail" name="gmail" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <p>Belum punya akun? <a href="{{ url_for('register') }}">Daftar di sini</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}

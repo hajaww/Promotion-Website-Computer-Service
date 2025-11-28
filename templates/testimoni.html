@@ -1,116 +1,53 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <section class="testimoni-page">
-    <div class="container">
-        <div class="testimoni-header">
-            <h1>🗣️ Testimoni Pelanggan</h1>
-            <p>Baca pengalaman pelanggan kami yang telah menggunakan jasa servis LaptopCare</p>
-        </div>
-
-        <div class="testimonial-slider">
-            <div class="testimonial-container">
-                {% for t in testimoni_data %}
-                <div class="testimonial-slide">
-                    <div class="testimonial-card">
-                        <div class="testimonial-quote">
-                            <i class="fas fa-quote-left"></i>
-                        </div>
-                        <p class="testimonial-text">{{ t.pesan }}</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="author-info">
-                                <h4>{{ t.nama }}</h4>
-                                <div class="rating">
-                                    {% for i in range(5) %}
-                                        {% if i < (t.rating | default(5)) %}
-                                            <i class="fas fa-star"></i>
-                                        {% else %}
-                                            <i class="far fa-star"></i>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                {% if not testimoni_data %}
-                <div class="testimonial-slide">
-                    <div class="testimonial-card">
-                        <div class="testimonial-quote">
-                            <i class="fas fa-quote-left"></i>
-                        </div>
-                        <p class="testimonial-text">Belum ada testimoni. Jadilah yang pertama memberikan ulasan!</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="author-info">
-                                <h4>LaptopCare</h4>
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-            <div class="slider-controls">
-                <button class="slider-btn prev-btn" id="prevBtn">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="slider-dots">
-                    {% for i in range(testimoni_data|length if testimoni_data else 1) %}
-                    <span class="dot {% if loop.first %}active{% endif %}" data-slide="{{ loop.index0 }}"></span>
-                    {% endfor %}
-                </div>
-                <button class="slider-btn next-btn" id="nextBtn">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </div>
-
-        <div class="testimoni-form-section">
-            <div class="form-container">
-                <h2>✍️ Berikan Testimoni Anda</h2>
-                <p>Bagikan pengalaman Anda menggunakan jasa servis kami</p>
-                <form method="POST" action="{{ url_for('testimoni') }}" class="testimonial-form">
-                    <div class="form-group">
-                        <label for="nama">Nama Lengkap</label>
-                        <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pesan">Testimoni</label>
-                        <textarea id="pesan" name="pesan" placeholder="Ceritakan pengalaman Anda..." rows="4" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Rating</label>
-                        <div class="rating-input">
-                            <input type="radio" id="star5" name="rating" value="5" checked>
-                            <label for="star5"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star4" name="rating" value="4">
-                            <label for="star4"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star3" name="rating" value="3">
-                            <label for="star3"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star2" name="rating" value="2">
-                            <label for="star2"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star1" name="rating" value="1">
-                            <label for="star1"><i class="fas fa-star"></i></label>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn submit-btn">
-                        <i class="fas fa-paper-plane"></i> Kirim Testimoni
-                    </button>
-                </form>
-            </div>
-        </div>
+  <div class="container">
+    <div class="testimoni-header">
+      <h1>⭐ Ulasan Google</h1>
+      <p>Baca ulasan pelanggan AACell dari Google Maps</p>
     </div>
+
+    <div class="google-reviews-grid">
+      {% for review in google_reviews %}
+      <div class="google-review-card">
+        <div class="google-header">
+          <img
+            src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg"
+            alt="Google"
+            class="google-logo"
+          />
+          <div class="review-info">
+            <span class="review-time">{{ review.waktu }}</span>
+          </div>
+        </div>
+        <div class="rating google-rating">
+          {% for i in range(5) %}
+            {% if i < review.rating %}
+              <i class="fas fa-star"></i>
+            {% else %}
+              <i class="far fa-star"></i>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <p class="testimonial-text">{{ review.pesan }}</p>
+        <div class="review-image-section">
+          <img
+            src="{{ review.gambar }}"
+            alt="Service Image"
+            class="review-image"
+          />
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar google-avatar">
+            <span>{{ review.avatar }}</span>
+          </div>
+          <div class="author-info">
+            <h4>{{ review.nama }}</h4>
+            <span class="review-source">Google Review</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 {% endblock %}

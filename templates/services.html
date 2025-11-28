@@ -2,87 +2,247 @@
 {% block title %}Layanan Servis{% endblock %}
 
 {% block content %}
-<section class="services">
+<!-- Services Hero Section -->
+<section class="services-hero">
     <div class="container">
-        <div class="services-header">
-            <h2>🧰 Layanan Servis Laptop</h2>
-            <p>Kami melayani berbagai jenis perbaikan dan perawatan laptop dengan teknisi berpengalaman. Semua layanan kami menggunakan sparepart berkualitas dan dikerjakan dengan standar profesional.</p>
-        </div>
-
-        <div class="service-list">
-            <div class="service-item">
-                <div class="service-icon">
-                    <i class="fas fa-thermometer-half"></i>
-                </div>
-                <h3>Ganti Thermal Paste</h3>
-                <p>Membersihkan kipas dan mengganti thermal paste CPU/GPU agar laptop tidak cepat panas. Mencegah overheating dan memperpanjang umur komponen.</p>
-                <div class="service-details">
-                    <span class="duration"><i class="fas fa-clock"></i> 30-45 menit</span>
-                    <span class="price">Rp75.000</span>
-                </div>
+        <div class="services-hero-content fade-in">
+            <div class="hero-badge">
+                <i class="fas fa-tools"></i>
+                Layanan Profesional
             </div>
-            <div class="service-item">
-                <div class="service-icon">
-                    <i class="fas fa-windows"></i>
+            <h1>Layanan Servis Elektronik Terpercaya</h1>
+            <p>Kami menyediakan berbagai layanan perbaikan dan perawatan perangkat elektronik dengan teknisi berpengalaman dan sparepart berkualitas tinggi. Dari laptop hingga smartwatch, semua kebutuhan servis elektronik Anda terlayani.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Perangkat Diperbaiki</div>
                 </div>
-                <h3>Install Ulang Windows</h3>
-                <p>Pemasangan ulang sistem operasi Windows beserta driver dan aplikasi standar. Termasuk backup data dan optimasi performa.</p>
-                <div class="service-details">
-                    <span class="duration"><i class="fas fa-clock"></i> 2-3 jam</span>
-                    <span class="price">Rp100.000</span>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Tingkat Kepuasan</div>
                 </div>
-            </div>
-            <div class="service-item">
-                <div class="service-icon">
-                    <i class="fas fa-hdd"></i>
-                </div>
-                <h3>Upgrade SSD/HDD</h3>
-                <p>Pemasangan SSD baru dan migrasi data dari HDD lama. Termasuk cloning data dan optimasi sistem untuk performa maksimal.</p>
-                <div class="service-details">
-                    <span class="duration"><i class="fas fa-clock"></i> 1-2 jam</span>
-                    <span class="price">Rp50.000</span>
-                </div>
-            </div>
-            <div class="service-item">
-                <div class="service-icon">
-                    <i class="fas fa-keyboard"></i>
-                </div>
-                <h3>Service Keyboard</h3>
-                <p>Perbaikan atau penggantian keyboard laptop yang rusak. Termasuk pembersihan debu dan kalibrasi tombol.</p>
-                <div class="service-details">
-                    <span class="duration"><i class="fas fa-clock"></i> 45-60 menit</span>
-                    <span class="price">Rp120.000</span>
-                </div>
-            </div>
-            <div class="service-item">
-                <div class="service-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <h3>Ganti LCD</h3>
-                <p>Penggantian layar laptop yang pecah atau bergaris. Menggunakan LCD original dengan kualitas terbaik.</p>
-                <div class="service-details">
-                    <span class="duration"><i class="fas fa-clock"></i> 1-2 jam</span>
-                    <span class="price">Rp350.000</span>
-                </div>
-            </div>
-            <div class="service-item">
-                <div class="service-icon">
-                    <i class="fas fa-memory"></i>
-                </div>
-                <h3>Upgrade RAM</h3>
-                <p>Pemasangan RAM tambahan untuk meningkatkan performa multitasking dan aplikasi berat.</p>
-                <div class="service-details">
-                    <span class="duration"><i class="fas fa-clock"></i> 30-45 menit</span>
-                    <span class="price">Rp30.000</span>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Teknis</div>
                 </div>
             </div>
         </div>
-
-        <div class="services-cta">
-            <h3>Punya Masalah Lain?</h3>
-            <p>Kami siap membantu dengan berbagai masalah laptop lainnya. Konsultasikan kebutuhan Anda dengan teknisi kami.</p>
-            <a href="{{ url_for('contact') }}" class="btn">Konsultasi Gratis</a>
+        <div class="floating-elements">
+            <div class="floating-element element-1"><i class="fas fa-laptop"></i></div>
+            <div class="floating-element element-2"><i class="fas fa-mobile-alt"></i></div>
+            <div class="floating-element element-3"><i class="fas fa-tablet-alt"></i></div>
+            <div class="floating-element element-4"><i class="fas fa-clock"></i></div>
+            <div class="floating-element element-5"><i class="fas fa-tools"></i></div>
         </div>
     </div>
 </section>
+
+<section class="services fade-in">
+    <div class="container">
+        <!-- Laptop Services -->
+        <div class="service-category">
+            <div class="category-header fade-in">
+                <div class="category-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <div class="category-info">
+                    <h2>Layanan Laptop</h2>
+                </div>
+            </div>
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-thermometer-half"></i>
+                    </div>
+                    <h3>Ganti Thermal Paste</h3>
+                    <p>Membersihkan kipas dan mengganti thermal paste CPU/GPU agar laptop tidak cepat panas. Mencegah overheating dan memperpanjang umur komponen.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fas fa-clock"></i> 30-45 menit</span>
+                        <span class="price">Rp75.000</span>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-windows"></i>
+                    </div>
+                    <h3>Install Ulang Windows</h3>
+                    <p>Pemasangan ulang sistem operasi Windows beserta driver dan aplikasi standar. Termasuk backup data dan optimasi performa.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fas fa-clock"></i> 2-3 jam</span>
+                        <span class="price">Rp100.000</span>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-hdd"></i>
+                    </div>
+                    <h3>Upgrade SSD/HDD</h3>
+                    <p>Pemasangan SSD baru dan migrasi data dari HDD lama. Termasuk cloning data dan optimasi sistem untuk performa maksimal.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fas fa-clock"></i> 1-2 jam</span>
+                        <span class="price">Rp50.000</span>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <h3>Service Keyboard</h3>
+                    <p>Perbaikan atau penggantian keyboard laptop yang rusak. Termasuk pembersihan debu dan kalibrasi tombol.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fas fa-clock"></i> 45-60 menit</span>
+                        <span class="price">Rp120.000</span>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Ganti LCD</h3>
+                    <p>Penggantian layar laptop yang pecah atau bergaris. Menggunakan LCD original dengan kualitas terbaik.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fas fa-clock"></i> 1-2 jam</span>
+                        <span class="price">Rp350.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Smartphone Services -->
+        <div class="service-category">
+            <div class="category-header fade-in">
+                <div class="category-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="category-info">
+                    <h2>Layanan Smartphone</h2>
+                </div>
+            </div>
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Ganti Layar Smartphone</h3>
+                    <p>Penggantian layar smartphone yang pecah atau rusak dengan layar original berkualitas tinggi.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fas fa-clock"></i> 45-60 menit</span>
+                        <span class="price">Rp150.000</span>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-battery-half"></i>
+                    </div>
+                    <h3>Ganti Baterai Smartphone</h3>
+                    <p>Penggantian baterai smartphone yang sudah tidak tahan lama dengan baterai original berkualitas.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fas fa-clock"></i> 30-45 menit</span>
+                        <span class="price">Rp100.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tablet Services -->
+        <div class="service-category">
+            <div class="category-header fade-in">
+                <div class="category-icon">
+                    <i class="fas fa-tablet-alt"></i>
+                </div>
+                <div class="category-info">
+                    <h2>Layanan Tablet</h2>
+                </div>
+            </div>
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-tablet-alt"></i>
+                    </div>
+                    <h3>Perbaikan Touch Screen Tablet</h3>
+                    <p>Perbaikan touch screen tablet yang tidak responsif atau bermasalah dengan komponen original.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fas fa-clock"></i> 1-2 jam</span>
+                        <span class="price">Rp200.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Smartwatch Services -->
+        <div class="service-category">
+            <div class="category-header fade-in">
+                <div class="category-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="category-info">
+                    <h2>Layanan Smartwatch</h2>
+                </div>
+            </div>
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Ganti Layar Smartwatch</h3>
+                    <p>Penggantian layar smartwatch yang pecah atau rusak dengan layar original dan presisi tinggi.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fas fa-clock"></i> 1-1.5 jam</span>
+                        <span class="price">Rp250.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="services-cta fade-in">
+            <div class="cta-content">
+                <h3>Punya Masalah Lain?</h3>
+                <p>Kami siap membantu dengan berbagai masalah perangkat elektronik lainnya. Konsultasikan kebutuhan Anda dengan teknisi kami untuk solusi terbaik.</p>
+                <div class="cta-features">
+                    <div class="cta-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Garansi 30 Hari</span>
+                    </div>
+                    <div class="cta-feature">
+                        <i class="fas fa-clock"></i>
+                        <span>Service Cepat</span>
+                    </div>
+                    <div class="cta-feature">
+                        <i class="fas fa-star"></i>
+                        <span>Kualitas Terjamin</span>
+                    </div>
+                </div>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-phone"></i>
+                    Konsultasi Gratis
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Scroll-triggered animations for services page
+document.addEventListener('DOMContentLoaded', function() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Initially pause all animations
+  document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+});
+</script>
 {% endblock %}

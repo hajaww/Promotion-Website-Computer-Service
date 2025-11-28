@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="2sAA Cellcom  - Servis Laptop Profesional dengan Teknisi Berpengalaman">
   <meta name="keywords" content="servis laptop, repair laptop, teknisi laptop, laptop care">
-  <title>{% block title %}AACellcom - Servis Laptop Profesional{% endblock %}</title>
+  <title>{% block title %}AACell- Servis Laptop Profesional{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
   <header id="header">
     <div class="container">
       <a href="{{ url_for('home') }}" class="logo">
-        <i class="fas fa-laptop"></i>
-        <span>AACellcom</span>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="AACellcom Logo">
+        <span>AACC</span>
       </a>
 
       <nav>
@@ -25,10 +26,6 @@
           <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">
             <i class="fas fa-home"></i>
             Home
-          </a>
-          <a href="{{ url_for('services') }}" class="{% if request.endpoint == 'services' %}active{% endif %}">
-            <i class="fas fa-tools"></i>
-            Services
           </a>
           <a href="{{ url_for('testimoni') }}" class="{% if request.endpoint == 'testimoni' %}active{% endif %}">
             <i class="fas fa-star"></i>
@@ -42,11 +39,12 @@
             <i class="fas fa-search"></i>
             Cek Status
           </a>
+
         </div>
 
-        <a href="{{ url_for('contact') }}" class="cta-button">
-          <i class="fas fa-phone"></i>
-          Hubungi Kami
+        <a href="{{ url_for('login') }}" class="cta-button">
+          <i class="fas fa-sign-in-alt"></i>
+          Login
         </a>
 
         <div class="hamburger">
@@ -68,7 +66,7 @@
         <div class="footer-section">
           <div class="footer-logo">
             <i class="fas fa-laptop"></i>
-            LaptopCare
+            AACell
           </div>
           <p>Solusi terpercaya untuk semua masalah laptop Anda. Servis profesional dengan garansi dan harga terjangkau.</p>
           <div class="social-links">
@@ -82,15 +80,13 @@
         <div class="footer-section">
           <h4>Layanan Kami</h4>
           <ul>
-            <li><a href="{{ url_for('services') }}">Perbaikan Hardware</a></li>
-            <li><a href="{{ url_for('services') }}">Perbaikan Software</a></li>
-            <li><a href="{{ url_for('services') }}">Upgrade Komponen</a></li>
-            <li><a href="{{ url_for('services') }}">Pembersihan Laptop</a></li>
-            <li><a href="{{ url_for('services') }}">Instalasi OS</a></li>
+            <li><a href="#services">Perbaikan Hardware</a></li>
+            <li><a href="#services">Perbaikan Software</a></li>
+            <li><a href="#services">Upgrade Komponen</a></li>
+            <li><a href="#services">Pembersihan Laptop</a></li>
+            <li><a href="#services">Instalasi OS</a></li>
           </ul>
-        </div>
-
-        <div class="footer-section">
+        </div>        <div class="footer-section">
           <h4>Dukungan</h4>
           <ul>
             <li><a href="{{ url_for('check') }}">Cek Status Servis</a></li>
@@ -103,15 +99,15 @@
 
         <div class="footer-section">
           <h4>Kontak</h4>
-          <p><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</p>
-          <p><i class="fas fa-phone"></i> +62 812-3456-7890</p>
-          <p><i class="fas fa-envelope"></i> info@laptopcare.com</p>
+          <p><i class="fas fa-map-marker-alt"></i> Cimahi, Indonesia</p>
+          <p><i class="fas fa-phone"></i> +62 812-2344-7569</p>
+          <p><i class="fas fa-envelope"></i> info@aacell.com</p>
           <p><i class="fas fa-clock"></i> Senin - Sabtu: 08:00 - 18:00</p>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2025 LaptopCare. All rights reserved. | Made with <i class="fas fa-heart" style="color: #ef4444;"></i> for quality service</p>
+        <p>&copy; 2025 AACell. All rights reserved. | Made with <i class="fas fa-heart" style="color: #ef4444;"></i> for quality service</p>
       </div>
     </div>
   </footer>
