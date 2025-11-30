@@ -1,8 +1,9 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <!-- Hero Section -->
-<section class="hero animated-bg" style="background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('{{ url_for('static', filename='electronic.png') }}'); background-size: cover; background-position: center; background-attachment: scroll;">
+<section
+  class="hero animated-bg"
+  style="background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('{{ url_for('static', filename='electronic.png') }}'); background-size: cover; background-position: center; background-attachment: scroll;"
+>
   <div class="container">
     <div class="hero-content">
       <div class="hero-badge fade-in">
@@ -12,21 +13,22 @@
 
       <h1 class="fade-in">
         Solusi Lengkap untuk
-        <span style="color: var(--primary-600);">Perangkat Elektronik</span> Anda
+        <span style="color: #60a5fa">Perangkat Elektronik</span> Anda
       </h1>
 
       <p class="fade-in">
-        Kami menyediakan jasa servis elektronik profesional untuk laptop, smartphone, tablet, smartwatch,
-        dan berbagai perangkat elektronik lainnya dengan teknisi berpengalaman, sparepart original,
-        dan garansi servis hingga 6 bulan.
+        Kami menyediakan jasa servis elektronik profesional untuk laptop,
+        smartphone, tablet, smartwatch, dan berbagai perangkat elektronik
+        lainnya dengan teknisi berpengalaman, sparepart original, dan garansi
+        servis hingga 6 bulan.
       </p>
 
       <div class="hero-buttons fade-in">
         <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">
-          <i class="fas fa-phone"></i>
-          Konsultasi Gratis
+          <i class="fas fa-phone-alt"></i>
+          Hubungi Kami
         </a>
-        <a href="{{ url_for('check') }}" class="btn btn-outline btn-lg">
+        <a href="{{ url_for('check') }}" class="btn btn-secondary btn-lg">
           <i class="fas fa-search"></i>
           Cek Status Servis
         </a>
@@ -59,34 +61,38 @@
   <div class="container">
     <div class="about-content">
       <div class="about-text slide-in-left">
-        <div class="section-badge">Tentang Kami</div>
-        <h2>Mengapa Memilih aacell?</h2>
+        <div class="section-badge">
+          <i class="fas fa-info-circle"></i>
+          Tentang Kami
+        </div>
+        <h2>Mengapa Memilih AACell?</h2>
         <p class="about-description">
-          Dengan pengalaman lebih dari 5 tahun melayani ribuan pelanggan di Cimahi,
-          aacellcom telah menjadi pilihan utama untuk servis elektronik profesional.
-          Kami mengutamakan kualitas, kecepatan, dan kepuasan pelanggan dengan
-          standar layanan tertinggi untuk semua jenis perangkat elektronik.
+          Dengan pengalaman lebih dari 5 tahun melayani ribuan pelanggan di
+          Cimahi, AACell telah menjadi pilihan utama untuk servis elektronik
+          profesional. Kami mengutamakan kualitas, kecepatan, dan kepuasan
+          pelanggan dengan standar layanan tertinggi untuk semua jenis perangkat
+          elektronik.
         </p>
 
         <div class="about-highlights">
           <div class="highlight-item">
             <div class="highlight-number">5+</div>
             <div class="highlight-text">
-              <strong>Tahun Pengalaman</strong><br>
+              <strong>Tahun Pengalaman</strong><br />
               <span>Melayani ribuan pelanggan</span>
             </div>
           </div>
           <div class="highlight-item">
             <div class="highlight-number">98%</div>
             <div class="highlight-text">
-              <strong>Kepuasan Pelanggan</strong><br>
+              <strong>Kepuasan Pelanggan</strong><br />
               <span>Tingkat kepuasan tertinggi</span>
             </div>
           </div>
           <div class="highlight-item">
             <div class="highlight-number">24h</div>
             <div class="highlight-text">
-              <strong>Estimasi Waktu</strong><br>
+              <strong>Estimasi Waktu</strong><br />
               <span>Pengerjaan cepat & tepat</span>
             </div>
           </div>
@@ -98,7 +104,10 @@
               <i class="fas fa-clock"></i>
             </div>
             <h4>Pengerjaan Cepat</h4>
-            <p>Estimasi waktu perbaikan yang jelas dan tepat waktu sesuai dengan jenis kerusakan</p>
+            <p>
+              Estimasi waktu perbaikan yang jelas dan tepat waktu sesuai dengan
+              jenis kerusakan
+            </p>
           </div>
 
           <div class="feature-item">
@@ -106,7 +115,10 @@
               <i class="fas fa-tools"></i>
             </div>
             <h4>Sparepart Original</h4>
-            <p>Menggunakan komponen original dengan kualitas terjamin dan sertifikasi resmi</p>
+            <p>
+              Menggunakan komponen original dengan kualitas terjamin dan
+              sertifikasi resmi
+            </p>
           </div>
 
           <div class="feature-item">
@@ -114,7 +126,10 @@
               <i class="fas fa-user-check"></i>
             </div>
             <h4>Teknisi Bersertifikat</h4>
-            <p>Tim teknisi profesional dengan sertifikasi internasional dan pengalaman bertahun-tahun</p>
+            <p>
+              Tim teknisi profesional dengan sertifikasi internasional dan
+              pengalaman bertahun-tahun
+            </p>
           </div>
         </div>
       </div>
@@ -126,9 +141,10 @@
             <h3>Servis Elektronik Profesional</h3>
           </div>
           <p class="stats-description">
-            Dari diagnosis masalah hingga perbaikan lengkap, kami siap membantu Anda
-            dengan layanan servis elektronik terpercaya untuk laptop, smartphone, tablet,
-            dan berbagai perangkat lainnya dengan kualitas tinggi.
+            Dari diagnosis masalah hingga perbaikan lengkap, kami siap membantu
+            Anda dengan layanan servis elektronik terpercaya untuk laptop,
+            smartphone, tablet, dan berbagai perangkat lainnya dengan kualitas
+            tinggi.
           </p>
           <div class="stats-benefits">
             <div class="benefit">
@@ -158,18 +174,36 @@
 <section class="section services">
   <div class="container">
     <div class="section-header">
-      <div class="section-badge">Layanan Kami</div>
+      <div class="section-badge">
+        <i class="fas fa-wrench"></i>
+        Layanan Kami
+      </div>
       <h2>Layanan Servis Terlengkap</h2>
-      <p>Kami menyediakan berbagai layanan servis elektronik mulai dari laptop, smartphone, tablet, hingga smartwatch dengan harga terjangkau dan teknisi profesional.</p>
+      <p>
+        Kami menyediakan berbagai layanan servis elektronik mulai dari laptop,
+        smartphone, tablet, hingga smartwatch dengan harga terjangkau dan
+        teknisi profesional.
+      </p>
     </div>
 
-    <div class="services-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; justify-items: stretch;">
+    <div
+      class="services-grid"
+      style="
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        justify-items: stretch;
+      "
+    >
       <div class="service-card fade-in">
         <div class="service-icon">
           <i class="fas fa-mobile-alt"></i>
         </div>
-        <h3 style="color: var(--primary-400);">Servis Smartphone</h3>
-        <p>Perbaikan hardware dan software smartphone seperti ganti layar, baterai, kamera, dan masalah sistem.</p>
+        <h3 style="color: var(--primary-400)">Servis Smartphone</h3>
+        <p>
+          Perbaikan hardware dan software smartphone seperti ganti layar,
+          baterai, kamera, dan masalah sistem.
+        </p>
         <div class="service-price">Mulai dari Rp 50.000</div>
         <ul class="service-features">
           <li>Ganti Layar/Baterai</li>
@@ -182,8 +216,11 @@
         <div class="service-icon">
           <i class="fas fa-laptop"></i>
         </div>
-        <h3 style="color: var(--primary-400);">Servis Laptop</h3>
-        <p>Perbaikan hardware dan software laptop seperti motherboard, RAM, harddisk, keyboard, dan layar.</p>
+        <h3 style="color: var(--primary-400)">Servis Laptop</h3>
+        <p>
+          Perbaikan hardware dan software laptop seperti motherboard, RAM,
+          harddisk, keyboard, dan layar.
+        </p>
         <div class="service-price">Mulai dari Rp 50.000</div>
         <ul class="service-features">
           <li>Ganti RAM/SSD</li>
@@ -196,8 +233,11 @@
         <div class="service-icon">
           <i class="fas fa-tablet-alt"></i>
         </div>
-        <h3 style="color: var(--primary-400);">Servis Tablet</h3>
-        <p>Perbaikan tablet berbagai merek dengan spesialisasi touch screen, port charging, dan komponen internal.</p>
+        <h3 style="color: var(--primary-400)">Servis Tablet</h3>
+        <p>
+          Perbaikan tablet berbagai merek dengan spesialisasi touch screen, port
+          charging, dan komponen internal.
+        </p>
         <div class="service-price">Mulai dari Rp 75.000</div>
         <ul class="service-features">
           <li>Ganti Touch Screen</li>
@@ -210,8 +250,11 @@
         <div class="service-icon">
           <i class="fas fa-clock"></i>
         </div>
-        <h3 style="color: var(--primary-400);">Servis Smartwatch</h3>
-        <p>Perbaikan smartwatch dan wearable devices termasuk ganti strap, layar, sensor, dan masalah konektivitas.</p>
+        <h3 style="color: var(--primary-400)">Servis Smartwatch</h3>
+        <p>
+          Perbaikan smartwatch dan wearable devices termasuk ganti strap, layar,
+          sensor, dan masalah konektivitas.
+        </p>
         <div class="service-price">Mulai dari Rp 100.000</div>
         <ul class="service-features">
           <li>Ganti Layar/Strap</li>
@@ -221,96 +264,10 @@
       </div>
     </div>
 
-    <div class="text-center" style="margin-top: 48px;">
+    <div class="text-center" style="margin-top: 48px">
       <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">
-        <i class="fas fa-phone"></i>
+        <i class="fas fa-phone-alt"></i>
         Konsultasi Sekarang
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="section testimonials">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-badge">Testimoni</div>
-      <h2>Apa Kata Pelanggan Kami</h2>
-      <p>Ribuan pelanggan telah mempercayakan perangkat elektronik mereka kepada kami. Berikut beberapa testimoni dari pelanggan puas.</p>
-    </div>
-
-    <div class="testimonials-grid">
-      <div class="testimonial-card fade-in">
-        <div class="testimonial-quote">"</div>
-        <div class="testimonial-text">
-          Servis smartphone sangat cepat dan profesional. HP saya yang layarnya pecah bisa kembali normal dalam waktu 1 hari.
-          Teknisi nya juga sangat sabar menjelaskan masalah dan solusinya.
-        </div>
-        <div class="testimonial-author">
-          <div class="author-avatar">A</div>
-          <div class="author-info">
-            <h4>Ahmad Rahman</h4>
-            <p>Mahasiswa</p>
-            <div class="rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial-card fade-in">
-        <div class="testimonial-quote">"</div>
-        <div class="testimonial-text">
-          Sudah 3 tahun menggunakan jasa aacellcom untuk servis elektronik kantor.
-          Selalu reliable dan harga nya reasonable. Dari laptop hingga tablet kantor semua teratasi dengan baik!
-        </div>
-        <div class="testimonial-author">
-          <div class="author-avatar">S</div>
-          <div class="author-info">
-            <h4>Sari Indah</h4>
-            <p>Manager HR</p>
-            <div class="rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial-card fade-in">
-        <div class="testimonial-quote">"</div>
-        <div class="testimonial-text">
-          Servis smartwatch dan tablet gaming saya sangat memuaskan. Teknisi nya profesional dan sparepart yang digunakan berkualitas.
-          Recommended banget untuk semua kebutuhan servis elektronik!
-        </div>
-        <div class="testimonial-author">
-          <div class="author-avatar">R</div>
-          <div class="author-info">
-            <h4>Rizky Gaming</h4>
-            <p>Gamer</p>
-            <div class="rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="text-center" style="margin-top: 48px;">
-      <a href="{{ url_for('testimoni') }}" class="btn btn-outline btn-lg">
-        <i class="fas fa-comments"></i>
-        Lihat Semua Testimoni
       </a>
     </div>
   </div>
@@ -320,19 +277,26 @@
 <section class="section cta">
   <div class="container">
     <div class="cta-content fade-in">
+      <div class="cta-icon">
+        <i class="fas fa-tools"></i>
+      </div>
       <h2>Siap Memperbaiki Perangkat Elektronik Anda?</h2>
       <p>
-        Jangan biarkan masalah perangkat elektronik mengganggu produktivitas Anda.
-        Hubungi kami sekarang dan dapatkan diagnosis gratis!
+        Jangan biarkan masalah perangkat elektronik mengganggu produktivitas
+        Anda. Hubungi kami sekarang dan dapatkan diagnosis gratis!
       </p>
-      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-        <a href="https://wa.me/6281234567890" class="btn btn-primary btn-lg" style="background: linear-gradient(135deg, #25d366, #1ebe57); border: none; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);">
+      <div class="cta-buttons">
+        <a
+          href="https://api.whatsapp.com/send/?phone=6281223447569&text=Halo%20AACell&type=phone_number&app_absent=0"
+          class="btn btn-whatsapp btn-lg"
+          target="_blank"
+        >
           <i class="fab fa-whatsapp"></i>
-          WhatsApp: +62 812-3456-7890
+          Chat WhatsApp
         </a>
-        <a href="{{ url_for('contact') }}" class="btn btn-outline btn-lg" style="border: 2px solid rgba(255,255,255,0.3); color: white; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);">
-          <i class="fas fa-envelope"></i>
-          Kirim Pesan
+        <a href="{{ url_for('contact') }}" class="btn btn-contact btn-lg">
+          <i class="fas fa-phone-alt"></i>
+          Hubungi Kami
         </a>
       </div>
     </div>
@@ -354,27 +318,29 @@
 </section>
 
 <script>
-// Scroll-triggered animations for index page
-document.addEventListener('DOMContentLoaded', function() {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
+  // Scroll-triggered animations for index page
+  document.addEventListener("DOMContentLoaded", function () {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.animationPlayState = 'running';
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = "running";
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
 
-  // Initially pause all animations
-  document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
-    el.style.animationPlayState = 'paused';
-    observer.observe(el);
+    // Initially pause all animations
+    document
+      .querySelectorAll(".fade-in, .slide-in-left, .slide-in-right")
+      .forEach((el) => {
+        el.style.animationPlayState = "paused";
+        observer.observe(el);
+      });
   });
-});
 </script>
 {% endblock %}

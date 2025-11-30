@@ -40,12 +40,27 @@
             Cek Status
           </a>
 
+          {% if session.get('username') %}
+            <div class="nav-user-info">
+              <span>
+                <i class="fas fa-user"></i> {{ session.get('username') }}
+              </span>
+            </div>
+            <a href="{{ url_for('admin_servis') }}" class="nav-link-admin">
+              <i class="fas fa-cog"></i>
+              Admin
+            </a>
+            <a href="{{ url_for('logout') }}" class="nav-link-logout">
+              <i class="fas fa-sign-out-alt"></i>
+              Logout
+            </a>
+          {% else %}
+            <a href="{{ url_for('login') }}" class="nav-link-login">
+              <i class="fas fa-sign-in-alt"></i>
+              Login
+            </a>
+          {% endif %}
         </div>
-
-        <a href="{{ url_for('login') }}" class="cta-button">
-          <i class="fas fa-sign-in-alt"></i>
-          Login
-        </a>
 
         <div class="hamburger">
           <span></span>
@@ -114,20 +129,58 @@
 
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   <script>
-    // Header scroll effect
-    window.addEventListener('scroll', function() {
-      const header = document.getElementById('header');
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Header scroll effect
+      window.addEventListener('scroll', function() {
+        const header = document.getElementById('header');
+        if (header) {
+          if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        }
+      });
 
-    // Mobile menu toggle
-    document.querySelector('.hamburger').addEventListener('click', function() {
-      this.classList.toggle('active');
-      document.querySelector('.nav-links').classList.toggle('active');
+      // Mobile menu toggle
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      
+      console.log('Hamburger element:', hamburger);
+      console.log('NavLinks element:', navLinks);
+      
+      if (hamburger && navLinks) {
+        hamburger.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const isActive = this.classList.toggle('active');
+          navLinks.classList.toggle('active');
+          
+          console.log('Hamburger clicked! Active:', isActive);
+          console.log('Nav classes:', navLinks.className);
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a, .nav-link-admin, .nav-link-logout, .nav-link-login').forEach(link => {
+          link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+          });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+          const isClickInside = navLinks.contains(event.target) || hamburger.contains(event.target);
+          if (!isClickInside && navLinks.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+          }
+        });
+      } else {
+        console.error('Hamburger or navLinks not found!');
+      }
     });
 
     // Smooth scrolling for anchor links

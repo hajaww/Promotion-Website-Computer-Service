@@ -1,0 +1,200 @@
+{% extends "base.html" %} 
+{% block content %}
+<section class="admin-page">
+  <div class="container">
+    <div class="admin-header">
+      <h1><i class="fas fa-cogs"></i> Manajemen Data Servis</h1>
+      <div class="admin-actions">
+        <span class="admin-user"><i class="fas fa-user-circle"></i> {{ session.gmail }}</span>
+        <a href="{{ url_for('logout') }}" class="btn btn-logout">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-circle' }}"></i>
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="admin-content">
+      <!-- Form Tambah/Edit Data Servis -->
+      <div class="form-section">
+        <div class="section-card">
+          <h2>
+            <i class="fas fa-plus-circle"></i> 
+            {% if edit_data %}Edit Data Servis{% else %}Tambah Data Servis Baru{% endif %}
+          </h2>
+          <form method="POST" action="{{ url_for('admin_servis') }}" class="admin-form">
+            {% if edit_data %}
+            <input type="hidden" name="action" value="edit">
+            <input type="hidden" name="old_nota" value="{{ edit_data.nota }}">
+            {% else %}
+            <input type="hidden" name="action" value="add">
+            {% endif %}
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nota"><i class="fas fa-hashtag"></i> Nomor Nota *</label>
+                <input type="text" id="nota" name="nota" value="{{ edit_data.nota if edit_data else '' }}" 
+                       placeholder="Contoh: S001" required {% if edit_data %}readonly{% endif %}>
+              </div>
+
+              <div class="form-group">
+                <label for="nama"><i class="fas fa-user"></i> Nama Pelanggan *</label>
+                <input type="text" id="nama" name="nama" value="{{ edit_data.nama if edit_data else '' }}" 
+                       placeholder="Nama lengkap" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="no_telepon"><i class="fas fa-phone"></i> No. Telepon</label>
+                <input type="text" id="no_telepon" name="no_telepon" value="{{ edit_data.no_telepon if edit_data else '' }}" 
+                       placeholder="Contoh: 081234567890">
+              </div>
+
+              <div class="form-group">
+                <label for="perangkat"><i class="fas fa-mobile-alt"></i> Jenis Perangkat *</label>
+                <select id="perangkat" name="perangkat" required>
+                  <option value="">Pilih Perangkat</option>
+                  <option value="Smartphone" {% if edit_data and edit_data.perangkat == 'Smartphone' %}selected{% endif %}>Smartphone</option>
+                  <option value="Laptop" {% if edit_data and edit_data.perangkat == 'Laptop' %}selected{% endif %}>Laptop</option>
+                  <option value="Tablet" {% if edit_data and edit_data.perangkat == 'Tablet' %}selected{% endif %}>Tablet</option>
+                  <option value="Smartwatch" {% if edit_data and edit_data.perangkat == 'Smartwatch' %}selected{% endif %}>Smartwatch</option>
+                  <option value="Lainnya" {% if edit_data and edit_data.perangkat == 'Lainnya' %}selected{% endif %}>Lainnya</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="kerusakan"><i class="fas fa-wrench"></i> Jenis Kerusakan *</label>
+              <input type="text" id="kerusakan" name="kerusakan" value="{{ edit_data.kerusakan if edit_data else '' }}" 
+                     placeholder="Contoh: Layar pecah, tidak bisa charging" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="tanggal_masuk"><i class="fas fa-calendar-alt"></i> Tanggal Masuk *</label>
+                <input type="date" id="tanggal_masuk" name="tanggal_masuk" 
+                       value="{{ edit_data.tanggal_masuk if edit_data else '' }}" required>
+              </div>
+
+              <div class="form-group">
+                <label for="estimasi_selesai"><i class="fas fa-calendar-check"></i> Estimasi Selesai</label>
+                <input type="date" id="estimasi_selesai" name="estimasi_selesai" 
+                       value="{{ edit_data.estimasi_selesai if edit_data else '' }}">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="status"><i class="fas fa-info-circle"></i> Status Servis *</label>
+              <select id="status" name="status" required>
+                <option value="menunggu-konfirmasi" {% if edit_data and edit_data.status == 'menunggu-konfirmasi' %}selected{% endif %}>Menunggu Konfirmasi</option>
+                <option value="sedang-dikerjakan" {% if edit_data and edit_data.status == 'sedang-dikerjakan' %}selected{% endif %}>Sedang Dikerjakan</option>
+                <option value="menunggu-sparepart" {% if edit_data and edit_data.status == 'menunggu-sparepart' %}selected{% endif %}>Menunggu Sparepart</option>
+                <option value="selesai" {% if edit_data and edit_data.status == 'selesai' %}selected{% endif %}>Selesai</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="keterangan"><i class="fas fa-comment-alt"></i> Keterangan</label>
+              <textarea id="keterangan" name="keterangan" rows="3" 
+                        placeholder="Catatan tambahan...">{{ edit_data.keterangan if edit_data else '' }}</textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> 
+                {% if edit_data %}Update Data{% else %}Simpan Data{% endif %}
+              </button>
+              {% if edit_data %}
+              <a href="{{ url_for('admin_servis') }}" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Batal
+              </a>
+              {% else %}
+              <button type="reset" class="btn btn-secondary">
+                <i class="fas fa-redo"></i> Reset
+              </button>
+              {% endif %}
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tabel Data Servis -->
+      <div class="table-section">
+        <div class="section-card">
+          <h2><i class="fas fa-list"></i> Daftar Data Servis ({{ servis_list|length }})</h2>
+          
+          {% if servis_list %}
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Nota</th>
+                  <th>Nama</th>
+                  <th>Perangkat</th>
+                  <th>Kerusakan</th>
+                  <th>Tanggal</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for servis in servis_list %}
+                <tr>
+                  <td><strong>{{ servis.nota }}</strong></td>
+                  <td>{{ servis.nama }}</td>
+                  <td><i class="fas fa-mobile-alt"></i> {{ servis.perangkat }}</td>
+                  <td>{{ servis.kerusakan }}</td>
+                  <td>{{ servis.tanggal_masuk }}</td>
+                  <td>
+                    <span class="status-badge {{ servis.status }}">
+                      {% if servis.status == 'menunggu-konfirmasi' %}Menunggu Konfirmasi
+                      {% elif servis.status == 'sedang-dikerjakan' %}Sedang Dikerjakan
+                      {% elif servis.status == 'menunggu-sparepart' %}Menunggu Sparepart
+                      {% elif servis.status == 'selesai' %}Selesai
+                      {% else %}{{ servis.status }}{% endif %}
+                    </span>
+                  </td>
+                  <td class="action-buttons">
+                    <form method="POST" action="{{ url_for('admin_servis') }}" style="display: inline;">
+                      <input type="hidden" name="action" value="edit_form">
+                      <input type="hidden" name="nota" value="{{ servis.nota }}">
+                      <button type="submit" class="btn-icon btn-edit" title="Edit">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                    </form>
+                    <form method="POST" action="{{ url_for('admin_servis') }}" style="display: inline;" 
+                          onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                      <input type="hidden" name="action" value="delete">
+                      <input type="hidden" name="nota" value="{{ servis.nota }}">
+                      <button type="submit" class="btn-icon btn-delete" title="Hapus">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p>Belum ada data servis</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

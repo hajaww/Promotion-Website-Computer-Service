@@ -1,9 +1,10 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 <section class="testimoni-page">
   <div class="container">
     <div class="testimoni-header">
-      <h1>⭐ Ulasan Google</h1>
-      <p>Baca ulasan pelanggan AACell dari Google Maps</p>
+      <h1>⭐ Ulasan Pelanggan Google</h1>
+      <p>Lihat apa kata pelanggan kami tentang layanan AACell di Google Maps</p>
     </div>
 
     <div class="google-reviews-grid">
@@ -12,13 +13,14 @@
         <div class="google-header">
           <img
             src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg"
-            alt="Google"
+            alt="Google Reviews"
             class="google-logo"
           />
           <div class="review-info">
             <span class="review-time">{{ review.waktu }}</span>
           </div>
         </div>
+        
         <div class="rating google-rating">
           {% for i in range(5) %}
             {% if i < review.rating %}
@@ -28,14 +30,19 @@
             {% endif %}
           {% endfor %}
         </div>
+        
         <p class="testimonial-text">{{ review.pesan }}</p>
+        
+        {% if review.gambar %}
         <div class="review-image-section">
           <img
             src="{{ review.gambar }}"
-            alt="Service Image"
+            alt="Review Image - {{ review.nama }}"
             class="review-image"
           />
         </div>
+        {% endif %}
+        
         <div class="testimonial-author">
           <div class="author-avatar google-avatar">
             <span>{{ review.avatar }}</span>

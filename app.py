@@ -1,19 +1,54 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
-import os, json, threading
+import os, json, threading, sqlite3
+from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Ganti dengan key yang aman
+app.secret_key = 'selebew'  # Ganti dengan key yang aman
 
-users = [
-    {'gmail': 'admin@gmail.com', 'password': 'admin123'},
-    {'gmail': 'user@gmail.com', 'password': 'user123'}
-]  # Array sementara untuk menyimpan pengguna
+# Hardcoded admin credentials
+ADMIN_USERNAME = 'admin'
+ADMIN_PASSWORD = 'admin123'
+
+# Database configuration
+DB_PATH = os.path.join(os.path.dirname(__file__), 'aacell.db')
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 os.makedirs(DATA_DIR, exist_ok=True)
 TESTIMONI_FILE = os.path.join(DATA_DIR, 'testimoni.json')
 
 _lock = threading.Lock()
+
+# Database helper functions
+def get_db_connection():
+    """Get database connection"""
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def init_db():
+    """Initialize database"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS servis_status (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nota TEXT UNIQUE NOT NULL,
+            nama TEXT NOT NULL,
+            no_telepon TEXT,
+            perangkat TEXT NOT NULL,
+            kerusakan TEXT NOT NULL,
+            status TEXT DEFAULT 'menunggu-konfirmasi',
+            tanggal_masuk TEXT NOT NULL,
+            estimasi_selesai TEXT,
+            keterangan TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    
+    conn.commit()
+    conn.close()
 
 def load_testimoni():
     if os.path.isfile(TESTIMONI_FILE):
@@ -34,20 +69,6 @@ def save_testimoni():
         print(f"[server-debug] Failed to save testimonials: {e}")
 
 testimoni_data = load_testimoni()  # persisted testimonials
-
-servis_data = [
-    {"nota": "S001", "nama": "Rafi", "status": "Sedang Dikerjakan"},
-    {"nota": "S002", "nama": "Dewi", "status": "Menunggu Sparepart"},
-    {"nota": "S003", "nama": "Budi", "status": "Selesai - Siap Diambil"},
-]
-
-testimoni_data = testimoni_data  # keep loaded
-
-servis_data = [
-    {"nota": "S001", "nama": "Rafi", "status": "Sedang Dikerjakan"},
-    {"nota": "S002", "nama": "Dewi", "status": "Menunggu Sparepart"},
-    {"nota": "S003", "nama": "Budi", "status": "Selesai - Siap Diambil"},
-]
 
 @app.route('/')
 def home():
@@ -147,45 +168,178 @@ def contact():
 def check():
     hasil = None
     if request.method == 'POST':
-        nomor = request.form.get('nomor')
-        for s in servis_data:
-            if s["nota"] == nomor or s["nama"].lower() == nomor.lower():
-                hasil = s
-                break
+        nomor = request.form.get('nomor', '').strip().upper()
+        if nomor:
+            conn = get_db_connection()
+            # Search by nota or nama
+            hasil = conn.execute(
+                'SELECT * FROM servis_status WHERE UPPER(nota) = ? OR UPPER(nama) LIKE ?',
+                (nomor, f'%{nomor}%')
+            ).fetchone()
+            conn.close()
+            
+            if hasil:
+                hasil = dict(hasil)
+    
     return render_template('check.html', hasil=hasil)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # Redirect to home if already logged in
+    if 'username' in session:
+        return redirect(url_for('home'))
+    
     if request.method == 'POST':
-        gmail = request.form.get('gmail')
+        username = request.form.get('username')
         password = request.form.get('password')
-        for user in users:
-            if user['gmail'] == gmail and user['password'] == password:
-                session['gmail'] = gmail
-                flash('Login berhasil!', 'success')
-                return redirect(url_for('home'))
-        flash('Gmail atau password salah.', 'error')
+        
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            session['username'] = username
+            flash('Login berhasil!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Username atau password salah.', 'error')
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
-        gmail = request.form.get('gmail')
-        password = request.form.get('password')
-        if any(user['gmail'] == gmail for user in users):
-            flash('Gmail sudah terdaftar.', 'error')
-        else:
-            users.append({'gmail': gmail, 'password': password})
-            flash('Registrasi berhasil! Silakan login.', 'success')
-            return redirect(url_for('login'))
-    return render_template('register.html')
+    # Registration disabled - redirect to login
+    flash('Registrasi tidak tersedia. Silakan hubungi administrator.', 'error')
+    return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():
-    session.pop('gmail', None)
+    session.pop('username', None)
     flash('Anda telah logout.', 'info')
     return redirect(url_for('home'))
 
+@app.route('/admin/servis', methods=['GET', 'POST'])
+def admin_servis():
+    # Check if user is logged in
+    if 'username' not in session:
+        flash('Silakan login terlebih dahulu untuk mengakses halaman admin.', 'error')
+        return redirect(url_for('login'))
+    
+    conn = get_db_connection()
+    edit_data = None
+    
+    if request.method == 'POST':
+        action = request.form.get('action')
+        
+        if action == 'add':
+            # Tambah data servis baru
+            nota = request.form.get('nota', '').strip().upper()
+            nama = request.form.get('nama', '').strip()
+            no_telepon = request.form.get('no_telepon', '').strip()
+            perangkat = request.form.get('perangkat', '').strip()
+            kerusakan = request.form.get('kerusakan', '').strip()
+            status = request.form.get('status', 'menunggu-konfirmasi')
+            tanggal_masuk = request.form.get('tanggal_masuk', '')
+            estimasi_selesai = request.form.get('estimasi_selesai', '')
+            keterangan = request.form.get('keterangan', '').strip()
+            
+            # Check if nota already exists
+            existing = conn.execute('SELECT id FROM servis_status WHERE nota = ?', (nota,)).fetchone()
+            
+            if existing:
+                flash(f'Nomor nota {nota} sudah ada! Gunakan nomor nota yang berbeda.', 'error')
+            else:
+                try:
+                    conn.execute('''
+                        INSERT INTO servis_status 
+                        (nota, nama, no_telepon, perangkat, kerusakan, status, tanggal_masuk, estimasi_selesai, keterangan)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ''', (nota, nama, no_telepon, perangkat, kerusakan, status, tanggal_masuk, estimasi_selesai, keterangan))
+                    conn.commit()
+                    flash(f'Data servis {nota} berhasil ditambahkan!', 'success')
+                except Exception as e:
+                    flash(f'Error: {str(e)}', 'error')
+            
+            conn.close()
+            return redirect(url_for('admin_servis'))
+        
+        elif action == 'edit':
+            # Edit data servis
+            old_nota = request.form.get('old_nota')
+            nota = request.form.get('nota', '').strip().upper()
+            nama = request.form.get('nama', '').strip()
+            no_telepon = request.form.get('no_telepon', '').strip()
+            perangkat = request.form.get('perangkat', '').strip()
+            kerusakan = request.form.get('kerusakan', '').strip()
+            status = request.form.get('status', 'menunggu-konfirmasi')
+            tanggal_masuk = request.form.get('tanggal_masuk', '')
+            estimasi_selesai = request.form.get('estimasi_selesai', '')
+            keterangan = request.form.get('keterangan', '').strip()
+            
+            try:
+                conn.execute('''
+                    UPDATE servis_status 
+                    SET nota=?, nama=?, no_telepon=?, perangkat=?, kerusakan=?, status=?, 
+                        tanggal_masuk=?, estimasi_selesai=?, keterangan=?, updated_at=CURRENT_TIMESTAMP
+                    WHERE nota=?
+                ''', (nota, nama, no_telepon, perangkat, kerusakan, status, tanggal_masuk, estimasi_selesai, keterangan, old_nota))
+                conn.commit()
+                flash(f'Data servis {nota} berhasil diupdate!', 'success')
+            except Exception as e:
+                flash(f'Error: {str(e)}', 'error')
+            
+            conn.close()
+            return redirect(url_for('admin_servis'))
+        
+        elif action == 'edit_form':
+            # Show edit form
+            nota = request.form.get('nota')
+            servis = conn.execute('SELECT * FROM servis_status WHERE nota = ?', (nota,)).fetchone()
+            if servis:
+                edit_data = dict(servis)
+        
+        elif action == 'delete':
+            # Delete data servis
+            nota = request.form.get('nota')
+            try:
+                conn.execute('DELETE FROM servis_status WHERE nota = ?', (nota,))
+                conn.commit()
+                flash(f'Data servis {nota} berhasil dihapus!', 'success')
+            except Exception as e:
+                flash(f'Error: {str(e)}', 'error')
+            
+            conn.close()
+            return redirect(url_for('admin_servis'))
+    
+    # GET request - load all data
+    servis_list = conn.execute('SELECT * FROM servis_status ORDER BY created_at DESC').fetchall()
+    servis_list = [dict(row) for row in servis_list]
+    conn.close()
+    
+    return render_template('admin_servis.html', servis_list=servis_list, edit_data=edit_data)
+
 
 if __name__ == '__main__':
+    # Initialize database if not exists
+    if not os.path.exists(DB_PATH):
+        print("Initializing database...")
+        init_db()
+        # Add sample data
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        sample_data = [
+            ('S001', 'Budi Santoso', '081234567890', 'Laptop', 'Layar pecah, tidak bisa menyala', 
+             'sedang-dikerjakan', '2024-01-15', '2024-01-20', 'Sedang proses pergantian LCD'),
+            ('S002', 'Siti Aminah', '082345678901', 'Smartphone', 'Baterai cepat habis, charging lambat', 
+             'menunggu-sparepart', '2024-01-16', '2024-01-25', 'Menunggu baterai original dari supplier'),
+            ('S003', 'Ahmad Rizki', '083456789012', 'Tablet', 'Touchscreen tidak responsif', 
+             'selesai', '2024-01-10', '2024-01-14', 'Servis selesai, sudah dicek dan berfungsi normal'),
+        ]
+        
+        cursor.executemany('''
+            INSERT INTO servis_status 
+            (nota, nama, no_telepon, perangkat, kerusakan, status, tanggal_masuk, estimasi_selesai, keterangan)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', sample_data)
+        
+        conn.commit()
+        conn.close()
+        print("✅ Database initialized with sample data!")
+    
     app.run(debug=True, port=5003)
